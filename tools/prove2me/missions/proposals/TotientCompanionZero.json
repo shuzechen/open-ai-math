@@ -1,0 +1,19 @@
+{
+ "name": "An asymptotic formula for the number of totients II: Exact zero case for the companion totient counts",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc"
+ ],
+ "description_file": "../drafts/TotientCompanionZero.md",
+ "items": [
+  {
+   "theorem_id": "de79d123-f22a-4db6-b8e1-0d67f04ec942",
+   "role": "definition",
+   "name": "TotientCompanionZero"
+  },
+  {
+   "theorem_id": "ebdedcb6-37b8-43a0-90fd-a2e24205d1eb",
+   "role": "goal"
+  }
+ ]
+}

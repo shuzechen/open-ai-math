@@ -1,0 +1,20 @@
+{
+ "name": "The Falconer distance conjecture I: Planar Falconer distance theorem",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "0a150745-b6ac-464f-872e-0f5cfd4d3558",
+  "eacb2bf6-9021-46c9-87ac-f30638efffb3"
+ ],
+ "description_file": "../drafts/PlanarFalconer.md",
+ "items": [
+  {
+   "theorem_id": "d1cac49c-71fe-4e80-baef-04f8c3d6376d",
+   "role": "definition",
+   "name": "PlanarFalconer"
+  },
+  {
+   "theorem_id": "9b46551e-cfc1-437c-9da5-8459e5a73ace",
+   "role": "goal"
+  }
+ ]
+}

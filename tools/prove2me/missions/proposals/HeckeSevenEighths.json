@@ -1,0 +1,19 @@
+{
+ "name": "The quasi-Riemann hypothesis III: Finite-order Hecke L-function 7/8 bound",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc"
+ ],
+ "description_file": "../drafts/HeckeSevenEighths.md",
+ "items": [
+  {
+   "theorem_id": "2d472118-502d-4ef2-b5f1-c17ac19c7c76",
+   "role": "definition",
+   "name": "HeckeSevenEighths"
+  },
+  {
+   "theorem_id": "8df76996-14de-44bf-a6cd-adef42b6891d",
+   "role": "goal"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+ "name": "Brennan's conjecture and the integral-means spectrum II: Sharp endpoint divergence",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "b2d3e691-5991-46d9-917d-047b9d4de3c7"
+ ],
+ "description_file": "../drafts/BrennanSharp.md",
+ "items": [
+  {
+   "theorem_id": "5db515c1-9409-4c52-84b7-c781b6ce2ffd",
+   "role": "definition",
+   "name": "BrennanSharp"
+  },
+  {
+   "theorem_id": "3416ef25-6abd-4d6c-9047-1ef53695b677",
+   "role": "goal"
+  }
+ ]
+}

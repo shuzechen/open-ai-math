@@ -1,0 +1,15 @@
+{
+ "name": "Ostmann’s inverse Goldbach conjecture II: Additive indecomposability of the primes up to finite changes",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc",
+  "55eec41b-ff24-45ad-96b6-49d7a6869286"
+ ],
+ "description_file": "../drafts/OstmannPrimes.md",
+ "items": [
+  {
+   "theorem_id": "125230cc-48fb-4610-8e3b-494fa85fd9ea",
+   "role": "goal"
+  }
+ ]
+}

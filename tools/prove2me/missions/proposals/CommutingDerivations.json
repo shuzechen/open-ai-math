@@ -1,0 +1,20 @@
+{
+ "name": "A stable-coordinate counterexample in four variables II: Commuting locally nilpotent derivations",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "d311bb23-6a7a-4f34-9f38-e55cf9e9c179",
+  "9a29f641-3f6a-4ce2-a4a6-1f6b1b4ee922"
+ ],
+ "description_file": "../drafts/CommutingDerivations.md",
+ "items": [
+  {
+   "theorem_id": "c9ac026b-ac30-401d-8676-581e6677fddf",
+   "role": "definition",
+   "name": "CommutingDerivations"
+  },
+  {
+   "theorem_id": "d995dd33-a729-456b-b6a9-d45e738bf592",
+   "role": "goal"
+  }
+ ]
+}

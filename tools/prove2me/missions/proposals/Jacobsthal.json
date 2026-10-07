@@ -1,0 +1,19 @@
+{
+ "name": "A quadratic bound for Jacobsthal’s function I: Quadratic Jacobsthal bound",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc"
+ ],
+ "description_file": "../drafts/Jacobsthal.md",
+ "items": [
+  {
+   "theorem_id": "06a4e929-5e18-48f6-b7a7-e7a5c2ea08f8",
+   "role": "definition",
+   "name": "Jacobsthal"
+  },
+  {
+   "theorem_id": "618784a0-08c9-4b4e-86f5-0673b23aed66",
+   "role": "goal"
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "name": "The quasi-Riemann hypothesis II: Dirichlet L-function 7/8 bound",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc"
+ ],
+ "description_file": "../drafts/DirichletSevenEighths.md",
+ "items": [
+  {
+   "theorem_id": "77c6c64d-585b-40cd-b84d-d41ebe9a2fe6",
+   "role": "goal"
+  }
+ ]
+}

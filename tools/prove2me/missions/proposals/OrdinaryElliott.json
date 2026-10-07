@@ -1,0 +1,19 @@
+{
+ "name": "Ordinary two-point correlations and the corrected Elliott conjecture I: Ordinary Elliott cancellation under uniform nonpretentiousness",
+ "mission_type": "ResearchPaper",
+ "field_ids": [
+  "e76e77ab-38dd-426d-a533-0b37fb6dbabc"
+ ],
+ "description_file": "../drafts/OrdinaryElliott.md",
+ "items": [
+  {
+   "theorem_id": "862b99f8-3850-4a96-8f48-f0e856dde9da",
+   "role": "definition",
+   "name": "OrdinaryElliott"
+  },
+  {
+   "theorem_id": "8dcdd820-9462-4b4b-9274-0f327f66a635",
+   "role": "goal"
+  }
+ ]
+}
