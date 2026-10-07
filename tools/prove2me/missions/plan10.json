@@ -1,0 +1,125 @@
+[
+ {
+  "challenge": "DirichletSevenEighths",
+  "name": "The quasi-Riemann hypothesis II: Dirichlet L-function 7/8 bound",
+  "goal": "77c6c64d-585b-40cd-b84d-d41ebe9a2fe6",
+  "milestones": [],
+  "def_id": null,
+  "n_pre": 2,
+  "doc": "003.md"
+ },
+ {
+  "challenge": "HeckeSevenEighths",
+  "name": "The quasi-Riemann hypothesis III: Finite-order Hecke L-function 7/8 bound",
+  "goal": "8df76996-14de-44bf-a6cd-adef42b6891d",
+  "milestones": [],
+  "def_id": "2d472118-502d-4ef2-b5f1-c17ac19c7c76",
+  "n_pre": 2,
+  "doc": "003.md"
+ },
+ {
+  "challenge": "OrdinaryElliott",
+  "name": "Ordinary two-point correlations and the corrected Elliott conjecture I: Ordinary Elliott cancellation under uniform nonpretentiousness",
+  "goal": "8dcdd820-9462-4b4b-9274-0f327f66a635",
+  "milestones": [],
+  "def_id": "862b99f8-3850-4a96-8f48-f0e856dde9da",
+  "n_pre": 0,
+  "doc": "007.md"
+ },
+ {
+  "challenge": "OstmannPrimes",
+  "name": "Ostmann’s inverse Goldbach conjecture II: Additive indecomposability of the primes up to finite changes",
+  "goal": "125230cc-48fb-4610-8e3b-494fa85fd9ea",
+  "milestones": [],
+  "def_id": null,
+  "n_pre": 1,
+  "doc": "013.md"
+ },
+ {
+  "challenge": "Jacobsthal",
+  "name": "A quadratic bound for Jacobsthal’s function I: Quadratic Jacobsthal bound",
+  "goal": "618784a0-08c9-4b4e-86f5-0673b23aed66",
+  "milestones": [],
+  "def_id": "06a4e929-5e18-48f6-b7a7-e7a5c2ea08f8",
+  "n_pre": 1,
+  "doc": "021.md"
+ },
+ {
+  "challenge": "TotientCompanionZero",
+  "name": "An asymptotic formula for the number of totients II: Exact zero case for the companion totient counts",
+  "goal": "ebdedcb6-37b8-43a0-90fd-a2e24205d1eb",
+  "milestones": [],
+  "def_id": "de79d123-f22a-4db6-b8e1-0d67f04ec942",
+  "n_pre": 0,
+  "doc": "024.md"
+ },
+ {
+  "challenge": "EgyptianFractions",
+  "name": "Short Egyptian fractions I: Short expansions, counting, and prescribed denominators",
+  "goal": "43b10430-ee80-49bd-8121-32726bfcd71c",
+  "milestones": [
+   [
+    "OAI.Problem337.main_double_log_order",
+    "034e7e57-4f39-4123-a938-b552579bba78"
+   ],
+   [
+    "OAI.Problem337.one_expansions_finite_and_bounded",
+    "50f763e7-dee4-4ddc-ab67-c02bb4b01161"
+   ],
+   [
+    "OAI.Problem337.counting_double_log_order",
+    "cc62b393-015e-4613-abff-2ff863881479"
+   ],
+   [
+    "OAI.Problem337.exact_marker_padding",
+    "43e4a3f6-9642-40bc-8fab-9df1904eaa41"
+   ],
+   [
+    "OAI.Problem337.every_exact_marker_occurs",
+    "05a36d43-649d-4e15-8a28-e345dc8626df"
+   ],
+   [
+    "OAI.Problem337.quantitative_marked_length",
+    "6f7d2546-df71-4e42-b9cc-95a3affb0594"
+   ],
+   [
+    "OAI.Problem337.missing_denominator_semantics",
+    "f1bc1eb9-abcf-47b3-b5e3-6680a6736cea"
+   ],
+   [
+    "OAI.Problem337.prescribed_denominator_corollary",
+    "af0c78ef-cce1-4f96-92ee-7733f0f2ba45"
+   ]
+  ],
+  "def_id": "35b94a65-7d55-451e-a3f5-d68a5d55cedf",
+  "n_pre": 0,
+  "doc": "025.md"
+ },
+ {
+  "challenge": "CommutingDerivations",
+  "name": "A stable-coordinate counterexample in four variables II: Commuting locally nilpotent derivations",
+  "goal": "d995dd33-a729-456b-b6a9-d45e738bf592",
+  "milestones": [],
+  "def_id": "c9ac026b-ac30-401d-8676-581e6677fddf",
+  "n_pre": 1,
+  "doc": "049.md"
+ },
+ {
+  "challenge": "BrennanSharp",
+  "name": "Brennan's conjecture and the integral-means spectrum II: Sharp endpoint divergence",
+  "goal": "3416ef25-6abd-4d6c-9047-1ef53695b677",
+  "milestones": [],
+  "def_id": "5db515c1-9409-4c52-84b7-c781b6ce2ffd",
+  "n_pre": 2,
+  "doc": "072.md"
+ },
+ {
+  "challenge": "PlanarFalconer",
+  "name": "The Falconer distance conjecture I: Planar Falconer distance theorem",
+  "goal": "9b46551e-cfc1-437c-9da5-8459e5a73ace",
+  "milestones": [],
+  "def_id": "d1cac49c-71fe-4e80-baef-04f8c3d6376d",
+  "n_pre": 1,
+  "doc": "073.md"
+ }
+]

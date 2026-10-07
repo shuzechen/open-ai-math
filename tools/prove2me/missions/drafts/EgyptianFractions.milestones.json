@@ -1,0 +1,42 @@
+[
+  {
+    "theorem_id": "034e7e57-4f39-4123-a938-b552579bba78",
+    "milestone_title": "Theorem 1.1 — N(b) is of order log log b (main_double_log_order)",
+    "milestone_description": "Preprint, Theorem 1.1: \"There are absolute constants c₁, c₂ > 0 and b₀ such that, for every integer b ≥ b₀, c₁ log log b ≤ N(b) ≤ c₂ log log b. In particular, the upper bound holds for every integer numerator 1 ≤ a < b.\" Here N(a, b) is the least k with a/b = 1/n₁ + ⋯ + 1/n_k, 2 ≤ n₁ < ⋯ < n_k, and N(b) = max over 1 ≤ a < b of N(a, b); the fractions need not be in lowest terms and the denominators have no upper bound. In Lean c1 and c2 are existentially quantified reals with 0 < c1 and 0 < c2, b0 is a natural number, both bounds are asserted for all b : ℕ with b0 ≤ b, N(b) is maxEgyptianLength b (the Finset.sup of egyptianLength a b over 1 ≤ a < b) cast to ℝ, and the logarithms are Real.log applied to (b : ℝ)."
+  },
+  {
+    "theorem_id": "50f763e7-dee4-4ddc-ab67-c02bb4b01161",
+    "milestone_title": "Supporting theorem: finiteness of k-term expansions of 1, F(k) ≤ k^(2^k − 1), n_i ≤ k^(2^i) (one_expansions_finite_and_bounded)",
+    "milestone_description": "The preprint's introduction refers to \"the elementary denominator bound proved below\", which \"makes D_k finite\" and yields the elementary upper bound v(k) ≤ 1 + k^(2^(k−1)) of Corollary 1.3; this milestone is that bound together with its consequence for counting. First, for every k the set OneExpansions k of expansions of 1 as a sum of k distinct unit fractions (denominators at least 1, strictly increasing) is finite and its cardinality F(k) is at most k^(2^k − 1); second, in every such expansion the i-th denominator satisfies n_i ≤ k^(2^i), indices counted from 0. In Lean both parts quantify over all k : ℕ with no lower bound, finiteness is Set.Finite (OneExpansions k), F k is Set.ncard, the exponent 2 ^ k - 1 uses natural-number subtraction, the second part assumes IsOneExpansion n for n : Fin k → ℕ, and the bound n i ≤ k ^ (2 ^ i.val) uses the underlying natural number i.val."
+  },
+  {
+    "theorem_id": "cc62b393-015e-4613-abff-2ff863881479",
+    "milestone_title": "Corollary 1.2 — log log F(k) is of order k (counting_double_log_order)",
+    "milestone_description": "Preprint, Corollary 1.2: \"There are absolute constants c, C > 0 and k₀ such that, for every integer k ≥ k₀, ck ≤ log log F(k) ≤ Ck.\" Here F(k) is the number of (n₁, …, n_k) with 1 ≤ n₁ < ⋯ < n_k, n_i ∈ ℤ, and 1/n₁ + ⋯ + 1/n_k = 1, with no upper bound on the denominators. In Lean c and C are existentially quantified reals with 0 < c and 0 < C, k0 is a natural number, the inequalities are asserted for all k : ℕ with k0 ≤ k, F k is the Set.ncard of OneExpansions k cast to ℝ, the logarithms are Real.log, and k is cast to ℝ in the products c * k and C * k."
+  },
+  {
+    "theorem_id": "43e4a3f6-9642-40bc-8fab-9df1904eaa41",
+    "milestone_title": "Supporting theorem: padding an expansion of 1 while retaining a denominator (exact_marker_padding)",
+    "milestone_description": "The preprint's introduction states that, for the prescribed-denominator consequence, \"a separate padding lemma retains the exact marker at every later length\" (Section 7), the operation van Doorn and Tang used to retain an exact prescribed denominator while increasing the length of a distinct expansion. This milestone is one step of it: for every r ≥ 3, every expansion of 1 as a sum of r distinct unit fractions n₀ < ⋯ < n_{r−1} (denominators at least 1), and every value m occurring among the n_i, there is an expansion of 1 as a sum of r + 1 distinct unit fractions in which m still occurs as a denominator. In Lean the hypotheses are 3 ≤ r, IsOneExpansion n for n : Fin r → ℕ, and ∃ i : Fin r, n i = m for a natural number m, and the conclusion exhibits n' : Fin (r + 1) → ℕ with IsOneExpansion n' and ∃ i : Fin (r + 1), n' i = m."
+  },
+  {
+    "theorem_id": "05a36d43-649d-4e15-8a28-e345dc8626df",
+    "milestone_title": "Supporting theorem: every m ≥ 2 occurs as a denominator in some expansion of 1 (every_exact_marker_occurs)",
+    "milestone_description": "The preprint's Section 7, as summarized in its introduction, \"reserves 1/m and uses a greedy prefix that skips denominator m\", so that \"any positive expansion of that remainder avoids all reserved denominators\"; the qualitative output is that every integer m ≥ 2 appears as a denominator in at least one expansion of 1 as a sum of distinct unit fractions, that is, m lies in D_k for some length k. In Lean the hypothesis is 2 ≤ m for m : ℕ and the conclusion is ∃ k : ℕ, m ∈ D k, where membership in D k unfolds to 2 ≤ m together with a one-expansion n : Fin k → ℕ (denominators at least 1, strictly increasing, reciprocals summing to 1 in ℚ) and an index i with n i = m."
+  },
+  {
+    "theorem_id": "6f7d2546-df71-4e42-b9cc-95a3affb0594",
+    "milestone_title": "Supporting theorem: prescribed denominator m with at most (257/log 2 + ε) log log m terms (quantitative_marked_length)",
+    "milestone_description": "The preprint's introduction describes the Section 8 construction, which \"constructs the tail from a common supply of rational numbers whose numerators divide one auxiliary integer\" and whose \"resulting length coefficient 257/log 2 gives the lower slope\" of Corollary 1.3. This milestone is that quantitative marked-expansion bound: for every ε > 0 there is a threshold m_ε ≥ 2 such that every integer m ≥ m_ε occurs as a denominator in an expansion of 1 as a sum of k distinct unit fractions with k ≤ (257/log 2 + ε) log log m. In Lean ε is a real with 0 < ε, m_ε is a natural number with 2 ≤ mε, the statement is for all m : ℕ with mε ≤ m, the witness is a length k : ℕ and n : Fin k → ℕ with IsOneExpansion n and ∃ i : Fin k, n i = m, and the length bound is (k : ℝ) ≤ (257 / Real.log 2 + ε) * Real.log (Real.log (m : ℝ))."
+  },
+  {
+    "theorem_id": "f1bc1eb9-abcf-47b3-b5e3-6680a6736cea",
+    "milestone_title": "Supporting theorem: D_k is finite and v(k) is its least missing denominator (missing_denominator_semantics)",
+    "milestone_description": "The preprint defines D_k as the set of integers m ≥ 2 for which there are positive integers n₁ < ⋯ < n_k with 1 = Σ 1/n_i and m ∈ {n₁, …, n_k}, sets v(k) = min({2, 3, …} \\ D_k), and notes that \"the elementary denominator bound proved below makes D_k finite, so this minimum exists\"; the upper bound v(k) ≤ 1 + k^(2^(k−1)) is the elementary bound of Corollary 1.3. This milestone records exactly that: for every k, D(k) is finite; some integer m ≥ 2 is missing from D(k); the least missing denominator v(k) satisfies v(k) ≥ 2 and v(k) ∉ D(k); every m with 2 ≤ m < v(k) lies in D(k); and for k ≥ 1, v(k) ≤ 1 + k^(2^(k−1)). In Lean the statement quantifies over all k : ℕ, the six conjuncts are Set.Finite (D k), ∃ m, m ∈ missingDenominators k, 2 ≤ v k, v k ∉ D k, ∀ m, 2 ≤ m → m < v k → m ∈ D k, and 1 ≤ k → v k ≤ 1 + k ^ (2 ^ (k - 1)) with natural-number subtraction in the exponent, where v k is sInf (missingDenominators k)."
+  },
+  {
+    "theorem_id": "af0c78ef-cce1-4f96-92ee-7733f0f2ba45",
+    "milestone_title": "Corollary 1.3 — double-exponential bounds for v(k) and the slope log log v(k)/k (prescribed_denominator_corollary)",
+    "milestone_description": "Preprint, Corollary 1.3: \"For every sufficiently large integer k, exp(exp(k/600)) ≤ v(k) ≤ 1 + k^(2^(k−1)). More precisely, log 2/257 ≤ lim inf_{k→∞} log log v(k)/k ≤ lim sup_{k→∞} log log v(k)/k ≤ log 2. Equivalently for the lower bound, every fixed c < log 2/257 satisfies v(k) ≥ exp(exp(ck)) for every sufficiently large integer k. In particular log log v(k) = Θ(k).\" Here v(k) is the least integer m ≥ 2 not occurring as a denominator in any expansion of 1 as a sum of k distinct unit fractions with positive integer denominators. In Lean the first and third parts each provide a threshold k0 : ℕ and quantify over k with k0 ≤ k, v k is cast to ℝ against Real.exp (Real.exp ((k : ℝ) / 600)) and Real.exp (Real.exp (c * (k : ℝ))), the upper bound v k ≤ 1 + k ^ (2 ^ (k - 1)) is stated in ℕ with natural-number subtraction, and the second part uses Filter.liminf and Filter.limsup of prescribedSlope (k ↦ Real.log (Real.log (v k : ℝ)) / k) along Filter.atTop with the chain Real.log 2 / 257 ≤ liminf ≤ limsup ≤ Real.log 2 stated explicitly."
+  }
+]

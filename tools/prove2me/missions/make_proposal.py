@@ -58,6 +58,19 @@ def main(spec_path):
             print(f"  added {it['role']:10s} {tid} -> item {iid}")
         it["item_id"] = iid
         order.append(iid)
+    # 2b. drop items (and their milestones) that the spec no longer lists
+    keep = {it["theorem_id"] for it in spec["items"]}
+    for tid, iid in list(have.items()):
+        if tid not in keep:
+            api("DELETE", f"/mission-proposals/{pid}/milestones/{iid}", ok=(200, 204, 404))
+            api("DELETE", f"/mission-proposals/{pid}/items/{iid}")
+            print(f"  removed item {iid} ({tid})")
+            del have[tid]
+    _, cur = api("GET", f"/mission-proposals/{pid}/milestones")
+    for m in (cur.get("milestones") or []):
+        if not any(it["role"] == "milestone" and it["item_id"] == m["item_id"] for it in spec["items"]):
+            api("DELETE", f"/mission-proposals/{pid}/milestones/{m['item_id']}", ok=(200, 204, 404))
+            print(f"  removed milestone on item {m['item_id']}")
     # 3. goal + order
     goal = [it for it in spec["items"] if it["role"] == "goal"]
     assert len(goal) == 1, "exactly one goal"

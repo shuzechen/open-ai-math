@@ -15,6 +15,19 @@ python3 tools/prove2me/missions/make_proposal.py tools/prove2me/missions/proposa
 added, order/goal/milestones are re-applied. Look up theorem ids with
 `GET /theorems?theorem_name=<exact name>` (the `q=` search times out on the current library size).
 
-Done so far: `003_quasi_riemann` (proposal `0969ce86-ba6c-4c0e-aae2-eba1ec72aa67`),
-`005_catalan` (proposal `4577d8a1-b3af-424c-9278-3f7e04db991f`). Both are Drafts; the
-human submits them from the website (My missions → confirm items → Submit Proposal).
+## Organisation
+
+- One mission per comparator row (one `ComparatorChallenges/<X>.lean`), named
+  `<docs title> <roman numeral>: <row label>` (numeral only when the doc has several rows).
+- Goal = first `theorem_names` entry; further entries of the same row = milestones titled by
+  the preprint's numbering; the row's Def bundle = definition reference item.
+- Rows whose goal theorem is already the goal of an existing mission (marwahaha's or wurtle's,
+  see `missions_all.jsonl` logic in the session notes) are skipped.
+- `DESCRIPTION_RULES.md` is the brief for drafting a description from `materials/<X>.json`
+  (docs page + challenge Lean + platform statements + preprint pages + bibliography);
+  `assemble_specs.py` turns `plan10.json` + `drafts/` into `proposals/<X>.json`.
+
+First ten proposals (all Draft, see `plan10.json`): DirichletSevenEighths, HeckeSevenEighths,
+OrdinaryElliott, OstmannPrimes, Jacobsthal, TotientCompanionZero, EgyptianFractions,
+CommutingDerivations, BrennanSharp, PlanarFalconer. The human submits them from the website
+(My missions → confirm items → Submit Proposal).

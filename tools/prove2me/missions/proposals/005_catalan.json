@@ -1,9 +1,0 @@
-{
- "name": "OpenAI Math 005: Irrationality of Catalan's constant",
- "mission_type": "ResearchPaper",
- "field_ids": ["e76e77ab-38dd-426d-a533-0b37fb6dbabc"],
- "description_file": "005_catalan.md",
- "items": [
-  {"theorem_id": "5d43011f-1f20-4616-bdf7-07d744325137", "role": "goal", "name": "OAI.InternalCatalan.catalan_irrational"}
- ]
-}
