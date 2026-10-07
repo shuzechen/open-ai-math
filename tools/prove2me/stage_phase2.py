@@ -31,6 +31,37 @@ import convert_challenges as cc  # noqa: E402
 LEAN = cc.LEAN
 WRAP = re.compile(r"^(omit|include|set_option|open)\b.*\bin\s*$", re.S)
 
+# Lean 4.34.1 -> 4.33.1 compatibility, same rules as the Phase 1 split (its README).
+IMPORT_RENAMES = {
+    "Mathlib.Basic.Complex.Basic": "Mathlib.Data.Complex.Basic",
+    "Mathlib.Basic.Real.Basic": "Mathlib.Data.Real.Basic",
+}
+THEOREM_ALIASES = {
+    "ite_eq_left": "private theorem ite_eq_left.{u} {c : Prop} {h : Decidable c} (hc : c) {α : Sort u} {t e : α} : (ite c t e) = t := @if_pos c h hc α t e",
+    "ite_eq_right": "private theorem ite_eq_right.{u} {c : Prop} {h : Decidable c} (hc : ¬c) {α : Sort u} {t e : α} : (ite c t e) = e := @if_neg c h hc α t e",
+    "dite_eq_left": "private theorem dite_eq_left.{u} {c : Prop} {h : Decidable c} (hc : c) {α : Sort u} {t : c → α} {e : ¬c → α} : (dite c t e) = t hc := @dif_pos c h hc α t e",
+    "dite_eq_right": "private theorem dite_eq_right.{u} {c : Prop} {h : Decidable c} (hc : ¬c) {α : Sort u} {t : c → α} {e : ¬c → α} : (dite c t e) = e hc := @dif_neg c h hc α t e",
+}
+
+
+COMPAT_BUNDLE = "Definitions.Def_Compat433"   # the Phase 1 backports (TensorProduct.inductionOn, MfldCat, …)
+
+
+def compat(text: str) -> str:
+    """Apply the import renames, import the shared backport bundle, and insert
+    the private 4.33 aliases after the import block."""
+    for old, new in IMPORT_RENAMES.items():
+        text = text.replace(f"import {old}\n", f"import {new}\n")
+    body = re.sub(r"^import .*$", "", text, flags=re.M)
+    needed = [THEOREM_ALIASES[n] for n in THEOREM_ALIASES if re.search(r"\b" + n + r"\b", body)]
+    lines = text.split("\n")
+    last_import = max((i for i, ln in enumerate(lines) if ln.startswith("import ")), default=-1)
+    extra = [f"import {COMPAT_BUNDLE}"]
+    if needed:
+        extra += ["", "-- Lean 4.33.1 equivalents of the Lean 4.34 theorem names."] + needed
+    lines[last_import + 1:last_import + 1] = extra
+    return "\n".join(lines)
+
 
 def slug(mod: str) -> str:
     return mod.replace(".", "_")
@@ -81,7 +112,7 @@ def subtract(mod: str, chal: str, drop_fq: set[str], in_closure: set[str]) -> tu
             continue
         out.append(b.text)
     text = "\n".join(out)
-    text = re.sub(r"\n{3,}", "\n\n", text).rstrip() + "\n"
+    text = compat(re.sub(r"\n{3,}", "\n\n", text).rstrip() + "\n")
     return text, dropped, bs
 
 
@@ -145,7 +176,7 @@ def stage(chal: str, lake: str, phase1: str, graph: dict) -> dict:
         if privates:
             parts += [f"namespace {ns}", "", "\n".join(privates), f"end {ns}", ""]
         parts += [wrapper + body.rstrip(), ""]
-        sol = "\n".join(parts)
+        sol = compat("\n".join(parts))
         sname = f"Sol_{slug(t)}"
         with open(os.path.join(lake, "Solutions", sname + ".lean"), "w", encoding="utf-8") as f:
             f.write(sol)
