@@ -42,7 +42,7 @@ DEF_PREFIX = "OAI_Challenge_"
 MODIFIERS = r"(?:(?:private|protected|noncomputable|unsafe|partial|nonrec|scoped|local)\s+)*"
 DECL_KW = r"(theorem|lemma|def|abbrev|structure|class|inductive|instance|axiom|opaque|example)"
 DECL_RE = re.compile(r"^" + MODIFIERS + DECL_KW + r"\b")
-THM_RE = re.compile(r"^" + MODIFIERS + r"(theorem|lemma)\s+([^\s:({\[]+)")
+THM_RE = re.compile(r"^" + MODIFIERS + r"(theorem|lemma)\s+([^\s:({\[]+?)(?=\.\{|[\s:({\[]|$)")  # stop before `.{u}`
 SCOPE_KW = ("namespace", "section", "noncomputable section", "end", "open", "universe",
             "variable", "set_option", "attribute", "notation", "local notation",
             "local instance", "scoped notation", "include", "omit", "macro", "syntax",
@@ -103,7 +103,10 @@ def split_blocks(text: str) -> list[Block]:
     pending: int | None = None
     for s, e in raw:
         head = lines[s]
-        attach = head.startswith(("/--", "@[", "--")) or (head.startswith("/-") and not head.startswith("/-!"))
+        # `@[simp]` alone on its line attaches to the next command; `@[simp] def f`
+        # is the command itself and must not swallow whatever follows it
+        bare_attr = head.startswith("@[") and re.fullmatch(r"@\[[^\]]*\]\s*", head) is not None
+        attach = head.startswith(("/--", "--")) or bare_attr or (head.startswith("/-") and not head.startswith("/-!"))
         if attach:
             if pending is None:
                 pending = s
@@ -119,12 +122,18 @@ def split_blocks(text: str) -> list[Block]:
         body = "\n".join(lines[s:e])
         # first non-attached line decides the kind
         j = s
-        while j < e and lines[j].startswith(("/--", "@[", "--")) or (j < e and lines[j].startswith("/-") and not lines[j].startswith("/-!")):
-            if lines[j].startswith("/-") and "-/" not in lines[j]:
-                while j < e and "-/" not in lines[j]:
-                    j += 1
-            j += 1
+        while j < e:
+            ln = lines[j]
+            is_attr_only = ln.startswith("@[") and re.fullmatch(r"@\[[^\]]*\]\s*", ln) is not None
+            if ln.startswith(("/--", "--")) or is_attr_only or (ln.startswith("/-") and not ln.startswith("/-!")):
+                if ln.startswith("/-") and "-/" not in ln:
+                    while j < e and "-/" not in lines[j]:
+                        j += 1
+                j += 1
+            else:
+                break
         head = lines[j] if j < e else ""
+        head = re.sub(r"^@\[[^\]]*\]\s*", "", head)   # `@[reducible] def f` -> `def f`
         kind, name = "def", None
         if head.startswith("import "):
             kind = "import"
@@ -141,7 +150,7 @@ def split_blocks(text: str) -> list[Block]:
             if m:
                 kind, name = "thm", m.group(2)
             else:
-                m2 = re.match(r"^" + MODIFIERS + DECL_KW + r"\s+([^\s:({\[]+)", head)
+                m2 = re.match(r"^" + MODIFIERS + DECL_KW + r"\s+([^\s:({\[]+?)(?=\.\{|[\s:({\[]|$)", head)
                 if m2 and m2.group(1) not in ("instance", "example"):
                     name = m2.group(2)
         blk = Block(kind, body, s + 1, e, name, None, tuple(ns))
@@ -206,7 +215,8 @@ def preamble_at(blocks: list[Block], idx: int) -> list[str]:
                             ns_path.pop()
                         break
         else:
-            stack[-1].lines.append(cmd)
+            # a docstring on e.g. a `local instance` must not reach the preamble
+            stack[-1].lines.append(strip_docstring_and_attrs(cmd))
     out: list[str] = []
     if any(s.noncomputable for s in stack):
         out.append("noncomputable section")
@@ -236,16 +246,11 @@ def make_stub(block: Block, fq: str) -> str:
     # rename to the fully-dotted name (binding occurrence only)
     body = re.sub(r"^(" + MODIFIERS + r")(theorem|lemma)\s+" + re.escape(block.name), r"\1theorem " + fq, body, count=1)
     body = re.sub(r"^protected\s+", "", body)
-    # normalise the proof to `:= by sorry`
-    m = re.search(r":=\s*by\s+sorry\s*$", body)
-    if m:
-        body = body[: m.start()] + ":= by sorry"
-    else:
-        m = re.search(r":=\s*(by)?\s*$", body)
-        if m:
-            raise ValueError(f"{fq}: unexpected proof shape (ends with ':=' but no sorry)")
-        raise ValueError(f"{fq}: cannot find ':= by sorry' at the end of the declaration")
-    return body
+    # normalise the proof (`:= by\n  sorry` or term-mode `:=\n  sorry`) to `:= by sorry`
+    m = re.search(r":=\s*(?:by\s+)?sorry\s*$", body)
+    if not m:
+        raise ValueError(f"{fq}: cannot find ':= by sorry' / ':= sorry' at the end of the declaration")
+    return body[: m.start()] + ":= by sorry"
 
 
 # ---------------------------------------------------------------- metadata --
@@ -328,6 +333,8 @@ def convert(name: str, out: str, sha: str, chal2fam, fam) -> dict:
         pre += imports
         pre += preamble_at(blocks, i)
         preamble = "\n".join(pre)
+        if re.search(r"^local instance\b", preamble, re.M):
+            plan["warnings"].append(f"{fq}: preamble re-declares `local instance`s (platform preamble rules frown on local declarations)")
         stmt = make_stub(b, fq)
         slug = fq.replace(".", "_")
         with open(os.path.join(out, "Theorems", f"Thm_{slug}.lean"), "w", encoding="utf-8") as f:
